@@ -9,9 +9,11 @@ creating applications for specialized devices, such as self-service terminals or
 Firstly
 
 ```shell
+## install
+cordova plugin add cordova-plugin-kiosk-device-owner
+
+## run your app on device and set your app as device owner
 adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
-# example for app with package io.github.gallyamow.testapp
-adb shell dpm set-device-owner io.github.gallyamow.testapp/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
 ```
 
 ```js
@@ -29,14 +31,6 @@ There are some additional options, see KioskOptions.
 After locking, you should see something like
 
 ![pinned](./pinned.png)
-
-### DEVELOPMENT
-
-To simplify development, you can install the plugin into your application as a symbolic link.
-
-```shell
-cordova plugin add ../cordova-plugin-kiosk-device-owner/ --link
-```
 
 ### SEE
 
