@@ -6,8 +6,6 @@ creating applications for specialized devices, such as self-service terminals or
 
 ### USAGE
 
-Firstly
-
 ```shell
 ## install
 cordova plugin add cordova-plugin-kiosk-device-owner
@@ -26,7 +24,17 @@ function onDeviceReady () {
 
   // reset device owner (development purposes only)
   KioskMode.clearDeviceOwner(success => console.log(success), err => console.log(err));
+  
 }
+```
+
+Alternative way to reset device owner is (but works only for `android:testOnly="true"`)
+
+```shell
+adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
+
+# check current owner
+adb shell dumpsys device_policy | grep "admin"
 ```
 
 There are some additional options, see KioskOptions.
@@ -34,6 +42,7 @@ There are some additional options, see KioskOptions.
 After locking, you should see something like
 
 ![pinned](./pinned.png)
+
 
 ### SEE
 
