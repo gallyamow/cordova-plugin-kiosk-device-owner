@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-kiosk-device-owner",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Kiosk mode based on COSU (Corporate Owned Single Use)",
   "cordova": {
     "id": "cordova-plugin-kiosk-device-owner",

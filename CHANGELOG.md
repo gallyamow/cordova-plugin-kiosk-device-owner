@@ -1,3 +1,4 @@
-### 1.0.2 (2024-11-11)
+### 1.0.3 (2024-11-11)
 
 * basic implementation
+* clearDeviceOwner

@@ -18,11 +18,11 @@ public class KioskPlugin extends CordovaPlugin {
         Activity activity = cordova.getActivity();
         KioskCosuLocker locker = new KioskCosuLocker(activity);
 
-        JSONObject jsonOptions = args.optJSONObject(0);
-        KioskOptions kioskOptions = null == jsonOptions ? KioskOptions.defaultOptions() : KioskOptions.parseFromJson(jsonOptions);
-
         try {
             if ("lock".equals(action)) {
+                JSONObject jsonOptions = args.optJSONObject(0);
+                KioskOptions kioskOptions = null == jsonOptions ? KioskOptions.defaultOptions() : KioskOptions.parseFromJson(jsonOptions);
+
                 // TODO: THREAD WARNING: exec() call to KioskMode.lock blocked the main thread for 161ms. Plugin should use CordovaInterface.getThreadPool().
                 locker.lock(kioskOptions);
                 callbackContext.success("done");
@@ -32,10 +32,22 @@ public class KioskPlugin extends CordovaPlugin {
                 return true;
             }
 
-
             if ("unlock".equals(action)) {
+                JSONObject jsonOptions = args.optJSONObject(0);
+                KioskOptions kioskOptions = null == jsonOptions ? KioskOptions.defaultOptions() : KioskOptions.parseFromJson(jsonOptions);
+
                 // TODO: THREAD WARNING: exec() call to KioskMode.lock blocked the main thread for 161ms. Plugin should use CordovaInterface.getThreadPool().
                 locker.unlock(kioskOptions);
+                callbackContext.success("done");
+
+                Log.d(TAG, String.format("Successfully executed '%s'", action));
+
+                return true;
+            }
+
+            if ("clearDeviceOwner".equals(action)) {
+                // TODO: THREAD WARNING: exec() call to KioskMode.lock blocked the main thread for 161ms. Plugin should use CordovaInterface.getThreadPool().
+                locker.clearDeviceOwner();
                 callbackContext.success("done");
 
                 Log.d(TAG, String.format("Successfully executed '%s'", action));

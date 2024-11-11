@@ -34,6 +34,7 @@ After locking, you should see something like
 
 ### SEE
 
+* https://habr.com/ru/articles/821361/
 * https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode
 * https://cordova.apache.org/docs/en/11.x/guide/hybrid/plugins/
 * https://snow.dog/blog/kiosk-mode-android

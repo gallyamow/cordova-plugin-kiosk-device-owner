@@ -34,4 +34,8 @@ module.exports = {
   unlock: function (resolve, reject, kioskOptions = null) {
     exec(resolve, reject, 'KioskMode', 'unlock', [kioskOptions])
   },
+
+  clearDeviceOwner: function (resolve, reject, kioskOptions = null) {
+    exec(resolve, reject, 'KioskMode', 'clearDeviceOwner', [])
+  },
 }

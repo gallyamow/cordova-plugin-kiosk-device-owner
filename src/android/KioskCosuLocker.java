@@ -37,11 +37,7 @@ public class KioskCosuLocker {
 
     public void lock(KioskOptions kioskOptions) {
         this.assertDeviceSupportedVersion();
-
-        if (!isAlreadyDeviceOwner()) {
-            Log.d(TAG, "Application is not the owner of the device.");
-            return;
-        }
+        this.assertDeviceOwner();
 
         enableComponent();
         manageUserRestrictions(true, kioskOptions);
@@ -51,6 +47,7 @@ public class KioskCosuLocker {
 
     public void unlock(KioskOptions kioskOptions) {
         this.assertDeviceSupportedVersion();
+        this.assertDeviceOwner();
 
         if (activityManager.getLockTaskModeState() == ActivityManager.LOCK_TASK_MODE_LOCKED) {
             activity.stopLockTask();
@@ -59,6 +56,17 @@ public class KioskCosuLocker {
         manageUserRestrictions(false, kioskOptions);
         manageActivityAsHomeReceiver(false);
         manageActivityLocking(false);
+    }
+
+    /**
+     * @see https://developer.android.com/reference/android/app/admin/DevicePolicyManager#clearDeviceOwnerApp
+     * @deprecated This method is expected to be used for testing purposes only.
+     */
+    public void clearDeviceOwner() {
+        this.assertDeviceSupportedVersion();
+        this.assertDeviceOwner();
+
+        devicePolicyManager.clearDeviceOwnerApp(appPackageName);
     }
 
     private void manageUserRestrictions(boolean lock, KioskOptions kioskOptions) {
@@ -159,13 +167,24 @@ public class KioskCosuLocker {
         devicePolicyManager.setLockTaskPackages(adminComponentName, new String[]{});
     }
 
+    private void assertDeviceOwner() {
+        if (!isDeviceOwner()) {
+            String message = String.format("Application '%s' is not the owner of the device.", appPackageName);
+            Log.e(TAG, message);
+            throw new RuntimeException(message);
+        }
+
+    }
+
     private void assertDeviceSupportedVersion() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            throw new RuntimeException("Your device does not support COSU.");
+            String message = String.format("Your device with version '%d' does not support COSU.", Build.VERSION.SDK_INT);
+            Log.e(TAG, message);
+            throw new RuntimeException(message);
         }
     }
 
-    private boolean isAlreadyDeviceOwner() {
+    private boolean isDeviceOwner() {
         return devicePolicyManager.isDeviceOwnerApp(appPackageName);
     }
 
@@ -185,7 +204,7 @@ public class KioskCosuLocker {
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP
         );
-        Log.d(TAG, "Component enabled.");
+        Log.d(TAG, "Component disabled.");
     }
 
     private void manageActivityLocking(boolean lock) {
