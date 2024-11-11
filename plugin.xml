@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-kiosk-device-owner" version="0.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>KioskMode</name>
+    <description>This package provides functionality for managing kiosk mode on Android devices.</description>
+    <keywords>cordova-kiosk,kiosk mode</keywords>
+    <js-module name="KioskMode" src="www/KioskMode.js">
+        <clobbers target="KioskMode"/>
+    </js-module>
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="KioskMode">
+                <param name="android-package" value="io.github.gallyamow.kiosk_plugin.KioskPlugin"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver"
+                      android:permission="android.permission.BIND_DEVICE_ADMIN"
+                      android:exported="true">
+                <meta-data
+                        android:name="android.app.device_admin"
+                        android:resource="@xml/kiosk_device_admin_receiver"/>
+                <intent-filter>
+                    <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+
+                    <action android:name="android.intent.action.DEVICE_ADMIN_ENABLED"/>
+                    <action android:name="android.intent.action.PROFILE_PROVISIONING_COMPLETE"/>
+                    <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                </intent-filter>
+            </receiver>
+        </config-file>
+        <source-file src="src/android/KioskCosuLocker.java" target-dir="src/io/github/gallyamow/kiosk_plugin"/>
+        <source-file src="src/android/KioskDeviceAdminReceiver.java" target-dir="src/io/github/gallyamow/kiosk_plugin"/>
+        <source-file src="src/android/KioskOptions.java" target-dir="src/io/github/gallyamow/kiosk_plugin"/>
+        <source-file src="src/android/KioskPlugin.java" target-dir="src/io/github/gallyamow/kiosk_plugin"/>
+        <source-file src="src/android/xml/kiosk_device_admin_receiver.xml" target-dir="res/xml/"/>
+    </platform>
+</plugin>
