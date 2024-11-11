@@ -23,6 +23,9 @@ function onDeviceReady () {
 
   // call to unlock
   KioskMode.unlock(success => console.log(success), err => console.log(err));
+
+  // reset device owner (development purposes only)
+  KioskMode.clearDeviceOwner(success => console.log(success), err => console.log(err));
 }
 ```
 
