@@ -1,6 +1,6 @@
 ### cordova-plugin-kiosk-device-owner
 
-This package provides functionality for managing kiosk mode on Android devices. It allows developers to enable and
+This plugin provides functionality for managing kiosk mode on Android devices. It allows developers to enable and
 disable kiosk mode, as well as configure various device management parameters. This package is useful for developers
 creating applications for specialized devices, such as self-service terminals or devices for educational institutions.
 
@@ -25,6 +25,10 @@ function onDeviceReady () {
 ```
 
 There are some additional options, see KioskOptions.
+
+After locking, you should see something like
+
+![pinned](./pinned.png)
 
 ### DEVELOPMENT
 
