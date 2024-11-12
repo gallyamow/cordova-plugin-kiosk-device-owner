@@ -20,7 +20,7 @@ module.exports = {
   /**
    * @param {function} resolve
    * @param {function} reject
-   * @param {KioskOptions} kioskOptions
+   * @param {?KioskOptions} kioskOptions
    */
   lock: function (resolve, reject, kioskOptions = null) {
     exec(resolve, reject, 'KioskMode', 'lock', [kioskOptions])
@@ -29,12 +29,17 @@ module.exports = {
   /**
    * @param {function} resolve
    * @param {function} reject
-   * @param {KioskOptions} kioskOptions
+   * @param {?KioskOptions} kioskOptions
    */
   unlock: function (resolve, reject, kioskOptions = null) {
     exec(resolve, reject, 'KioskMode', 'unlock', [kioskOptions])
   },
 
+  /**
+   * @param {function} resolve
+   * @param {function} reject
+   * @param {?KioskOptions} kioskOptions
+   */
   clearDeviceOwner: function (resolve, reject, kioskOptions = null) {
     exec(resolve, reject, 'KioskMode', 'clearDeviceOwner', [])
   },
