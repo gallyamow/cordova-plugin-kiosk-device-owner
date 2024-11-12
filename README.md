@@ -4,37 +4,36 @@ This plugin provides functionality for managing kiosk mode on Android devices. I
 disable kiosk mode, as well as configure various device management parameters. This package is useful for developers
 creating applications for specialized devices, such as self-service terminals or devices for educational institutions.
 
-### USAGE
+### INSTALL
 
 ```shell
-## install
+## to install
 cordova plugin add cordova-plugin-kiosk-device-owner
 
-## run your app on device and set your app as device owner
+## run your app on device
+# than run this command in order to set your app as device owner
+adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
+
+## to see current device owner
+adb shell dumpsys device_policy | grep "admin"
+
+## to reset current device owner (works only for  `android:testOnly="true"` apps)
 adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
 ```
+
+### USAGE
 
 ```js
 function onDeviceReady () {
   //call to lock
-  KioskMode.lock(success => console.log(success), err => console.log(err));
+  KioskMode.lock(success => console.log, err => console.log)
 
   // call to unlock
-  KioskMode.unlock(success => console.log(success), err => console.log(err));
+  KioskMode.unlock(success => console.log, err => console.log)
 
   // reset device owner (development purposes only)
-  KioskMode.clearDeviceOwner(success => console.log(success), err => console.log(err));
-  
+  KioskMode.clearDeviceOwner(success => console.log, err => console.log)
 }
-```
-
-Alternative way to reset device owner is (but works only for `android:testOnly="true"`)
-
-```shell
-adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
-
-# check current owner
-adb shell dumpsys device_policy | grep "admin"
 ```
 
 There are some additional options, see KioskOptions.
