@@ -24,15 +24,15 @@ adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin
 ### USAGE
 
 ```js
-function onDeviceReady () {
+async function onDeviceReady () {
   //call to lock
-  KioskMode.lock(success => console.log, err => console.log)
+  await KioskMode.lock()
 
   // call to unlock
-  KioskMode.unlock(success => console.log, err => console.log)
+  await KioskMode.unlock()
 
   // reset device owner (development purposes only)
-  KioskMode.clearDeviceOwner(success => console.log, err => console.log)
+  await KioskMode.clearDeviceOwner()
 }
 ```
 
