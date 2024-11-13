@@ -18,7 +18,7 @@ var exec = require('cordova/exec')
 
 module.exports = {
   /**
-   * @param {KioskOptions} kioskOptions
+   * @param {?KioskOptions} kioskOptions
    * @returns {Promise<unknown>}
    */
   lock: function (kioskOptions = null) {
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   /**
-   * @param {KioskOptions} kioskOptions
+   * @param {?KioskOptions} kioskOptions
    * @returns {Promise<unknown>}
    */
   unlock: function (kioskOptions = null) {
