@@ -18,7 +18,7 @@ adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin
 adb shell dumpsys device_policy | grep "admin"
 
 ## to reset current device owner (works only for  `android:testOnly="true"` apps)
-adb shell dpm set-device-owner your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
+adb shell dpm remove-active-admin your.app.package/io.github.gallyamow.kiosk_plugin.KioskDeviceAdminReceiver
 ```
 
 ### USAGE
