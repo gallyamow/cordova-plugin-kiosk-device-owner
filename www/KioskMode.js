@@ -18,29 +18,31 @@ var exec = require('cordova/exec')
 
 module.exports = {
   /**
-   * @param {function} resolve
-   * @param {function} reject
-   * @param {?KioskOptions} kioskOptions
+   * @param {KioskOptions} kioskOptions
+   * @returns {Promise<unknown>}
    */
-  lock: function (resolve, reject, kioskOptions = null) {
-    exec(resolve, reject, 'KioskMode', 'lock', [kioskOptions])
+  lock: function (kioskOptions = null) {
+    return new Promise((resolve, reject) => {
+      exec(resolve, reject, 'KioskMode', 'lock', [kioskOptions])
+    })
   },
 
   /**
-   * @param {function} resolve
-   * @param {function} reject
-   * @param {?KioskOptions} kioskOptions
+   * @param {KioskOptions} kioskOptions
+   * @returns {Promise<unknown>}
    */
-  unlock: function (resolve, reject, kioskOptions = null) {
-    exec(resolve, reject, 'KioskMode', 'unlock', [kioskOptions])
+  unlock: function (kioskOptions = null) {
+    return new Promise((resolve, reject) => {
+      exec(resolve, reject, 'KioskMode', 'unlock', [kioskOptions])
+    })
   },
 
   /**
-   * @param {function} resolve
-   * @param {function} reject
-   * @param {?KioskOptions} kioskOptions
+   * @returns {Promise<unknown>}
    */
-  clearDeviceOwner: function (resolve, reject, kioskOptions = null) {
-    exec(resolve, reject, 'KioskMode', 'clearDeviceOwner', [])
+  clearDeviceOwner: function () {
+    return new Promise((resolve, reject) => {
+      exec(resolve, reject, 'KioskMode', 'clearDeviceOwner', [])
+    })
   },
 }
